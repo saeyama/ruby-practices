@@ -22,8 +22,7 @@ print "#{week.rjust(14)}\n"
 
 #3行目/日にち
 print "   " * firstday.wday
-(firstday..lastday).each.with_index(firstday.wday - 1) do |day, index|
-  index += 1
+(firstday..lastday).each.with_index(firstday.wday) do |day, index|
   puts "\n" if index % 7 == 0
   print day.strftime("%-d").rjust(3)
 end
