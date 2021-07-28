@@ -3,30 +3,27 @@
 score = ARGV[0]
 scores = score.split(',')
 
-shots = []
-scores.each do |s|
-  shots <<
+shots =
+  scores.map do |s|
     if s == 'X'
       10
     else
       s.to_i
     end
-end
+  end
 
-frames = []
-10.times do |i|
-  frames <<
+frames =
+  Array.new(10) do |i|
     if i < 9
       shots[0] == 10 ? [shots.shift] : shots.shift(2)
     else
       shots
     end
-end
+  end
 
 # 合計値
-point = 0
-frames.each_with_index do |frame, index|
-  point +=
+point =
+  frames.each_with_index.sum do |frame, index|
     if frame == [10] && frames[index + 1] == [10] && (index < 9)
       20 + frames[index + 2][0]
     elsif frame == [10] && (index < 9)
@@ -36,6 +33,6 @@ frames.each_with_index do |frame, index|
     else
       frame.sum
     end
-end
+  end
 
 p point
