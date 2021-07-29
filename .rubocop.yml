@@ -3,3 +3,8 @@ inherit_gem:
     - "config/rubocop.yml"
 Style/FrozenStringLiteralComment:
   Enabled: false
+Metrics/MethodLength:
+  Exclude:
+    - '05.ls/**/*'
+    - '/**/*'
+      
