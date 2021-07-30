@@ -14,9 +14,9 @@ def ls_l_alr(files)
       array << fs.ftype
       array << fs.mode.to_s(8)
       array << fs.nlink.to_s
-      array << fs.size
       array << Etc.getpwuid(fs.uid).name
       array << Etc.getgrgid(fs.gid).name
+      array << fs.size
       array << fs.mtime.strftime('%-m %-d %H:%M')
     end
   # トータル出力
