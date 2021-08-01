@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'optparse'
-require './options_l_alr'
-require './options_nomal_a_r'
+require './05.ls/options_l_alr'
+require './05.ls/options_nomal_a_r'
 
 def ls_option
   options = ARGV.getopts('alr')
