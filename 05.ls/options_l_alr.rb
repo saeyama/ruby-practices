@@ -1,36 +1,31 @@
+require 'etc'
 # ls-l/ls-alr
 def ls_l_alr(files)
-  require 'etc'
-  # 全ファイル取得
-  all_files = files.map { |item| item }
+  # 全ファイルに対してstat
+  stat_files = files.map { |file| File::Stat.new(file) }
   # トータル用
-  total = 0
-  # -lの内容を取得
-  row_files =
-    all_files.map do |file|
-      array = []
-      fs = File::Stat.new(file)
-      total += fs.blocks
-      array << fs.ftype
-      array << fs.mode.to_s(8)
-      array << fs.nlink.to_s
-      array << Etc.getpwuid(fs.uid).name
-      array << Etc.getgrgid(fs.gid).name
-      array << fs.size
-      array << fs.mtime.strftime('%-m %-d %H:%M')
-    end
+  total = stat_files.sum(&:blocks)
+  # -lの各情報を取得
+  row_files = stat_files.map do |fs|
+    array = []
+    array << fs.ftype
+    array << fs.mode.to_s(8)
+    array << fs.nlink.to_s
+    array << Etc.getpwuid(fs.uid).name
+    array << Etc.getgrgid(fs.gid).name
+    array << fs.size
+    array << fs.mtime.strftime('%-m %-d %H:%M')
+  end
   # トータル出力
   puts "total #{total}"
-  # 行列置換
-  column_files = row_files.transpose
-  filetype_convert = column_files[0].map { |file| filetype(file) }
-  permission_convert = column_files[1].map { |file| permission(file[-3].to_i) + permission(file[-2].to_i) + permission(file[-1].to_i) }
-  array_files = filetype_convert, permission_convert, column_files[2], column_files[3], column_files[4], column_files[5], column_files[6], files
+  # ファイルタイプ　パーミッション変換
+  filetype = row_files.map { |file| filetype(file[0]) }
+  permission = row_files.map { |file| permission(file[1][-3].to_i) + permission(file[1][-2].to_i) + permission(file[1][-1].to_i) }
 
-  array_files.transpose.each do |array_file|
-    array_file.each { |file| print file.to_s.ljust(6).rjust(4) }
-    print "\n"
-  end
+  all_files = row_files.transpose.push(files)
+  column_files = filetype, permission, all_files[2], all_files[3], all_files[4], all_files[5], all_files[6], all_files[7]
+  # 結果を出力
+  column_files.transpose.map { |file| print "#{file.join(' ')} \n" }
 end
 
 # ファイルタイプ
