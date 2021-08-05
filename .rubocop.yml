@@ -2,9 +2,4 @@ inherit_gem:
   rubocop-fjord:
     - "config/rubocop.yml"
 Style/FrozenStringLiteralComment:
-  Enabled: false
-Metrics/MethodLength:
-  Exclude:
-    - '05.ls/**/*'
-    - '/**/*'
-      
+  Enabled: false      
