@@ -1,12 +1,11 @@
 require 'etc'
-# ls-l/ls-alr
-def ls_l_alr(files)
+def list_directory_long_format(files)
   # 全ファイルに対してstat
   stat_files = files.map { |file| File::Stat.new(file) }
   # トータル用
   total = stat_files.sum(&:blocks)
   # -lの各情報を取得
-  row_files = stat_files.map do |fs|
+  row_files = stat_files.map.with_index do |fs, i|
     array = []
     array << fs.ftype
     array << fs.mode.to_s(8)
@@ -15,17 +14,17 @@ def ls_l_alr(files)
     array << Etc.getgrgid(fs.gid).name
     array << fs.size
     array << fs.mtime.strftime('%-m %-d %H:%M')
+    array << files[i]
   end
   # トータル出力
   puts "total #{total}"
-  # ファイルタイプ　パーミッション変換
-  filetype = row_files.map { |file| filetype(file[0]) }
-  permission = row_files.map { |file| permission(file[1][-3].to_i) + permission(file[1][-2].to_i) + permission(file[1][-1].to_i) }
-
-  all_files = row_files.transpose.push(files)
-  column_files = filetype, permission, all_files[2], all_files[3], all_files[4], all_files[5], all_files[6], all_files[7]
   # 結果を出力
-  column_files.transpose.map { |file| print "#{file.join(' ')} \n" }
+  row_files.map do |file|
+    print filetype(file[0])
+    print permission(file[1][-3].to_i) + permission(file[1][-2].to_i) + permission(file[1][-1].to_i).to_s.ljust(6)
+    print file[2..7].join('  ')
+    print "\n"
+  end
 end
 
 # ファイルタイプ

@@ -1,23 +1,14 @@
 #!/usr/bin/env ruby
 require 'optparse'
-require './options_l_alr'
-require './options_nomal_a_r'
+require './options'
+require './options_long_format'
 
 options = ARGV.getopts('alr')
 
-files =
-  if options['a']
-    Dir.glob('*', File::FNM_DOTMATCH).sort
-  elsif options['r']
-    Dir.glob('*').sort.reverse
-  else
-    Dir.glob('*').sort
-  end
+files = options['a'] ? Dir.glob('*', File::FNM_DOTMATCH).sort : Dir.glob('*').sort
 
-if options['a'] && options['l']
-  ls_l_alr(files.reverse)
-elsif options['l'] || options['l'] && files
-  ls_l_alr(files)
+if options['l']
+  options['r'] ? list_directory_long_format(files.reverse) : list_directory_long_format(files)
 else
-  ls_nomal_a_r(files)
+  options['r'] ? list_directory(files.reverse) : list_directory(files)
 end

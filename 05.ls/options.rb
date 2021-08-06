@@ -1,5 +1,4 @@
-# ls/ls-a/ls-r
-def ls_nomal_a_r(files)
+def list_directory(files)
   column_files = []
   columns_number = 3
   files.each_slice(columns_number) do |list|
@@ -18,7 +17,7 @@ def ls_nomal_a_r(files)
   end
 
   split_files.transpose.each do |split_file|
-    split_file.each { |file| print file.to_s.ljust(20) }
+    split_file.each { |file| print file.to_s.ljust(25) }
     print "\n"
   end
 end
