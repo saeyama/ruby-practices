@@ -19,8 +19,8 @@ def list_directory_long_format(files)
   # トータル出力
   puts "total #{total}"
   # 結果を出力
-  row_files.map do |file|
-    print file[0..7].join(' ')
+  row_files.each do |file|
+    print file.join(' ')
     print "\n"
   end
 end
