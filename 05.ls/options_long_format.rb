@@ -7,8 +7,8 @@ def list_directory_long_format(files)
   # -lの各情報を取得
   row_files = stat_files.map.with_index do |fs, i|
     array = []
-    array << fs.ftype
-    array << fs.mode.to_s(8)[-3, 3]
+    array << filetype(fs.ftype)
+    array << fs.mode.to_s(8)[-3, 3].chars.map { |f| permission(f.to_i) }.join('')
     array << fs.nlink.to_s
     array << Etc.getpwuid(fs.uid).name
     array << Etc.getgrgid(fs.gid).name
@@ -20,9 +20,7 @@ def list_directory_long_format(files)
   puts "total #{total}"
   # 結果を出力
   row_files.map do |file|
-    print filetype(file[0])
-    print file[1].chars.map { |f| permission(f.to_i) }.join('')
-    print file[2..7].join('  ')
+    print file[0..7].join(' ')
     print "\n"
   end
 end
