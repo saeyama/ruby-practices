@@ -8,7 +8,7 @@ def list_directory_long_format(files)
   row_files = stat_files.map.with_index do |fs, i|
     array = []
     array << fs.ftype
-    array << fs.mode.to_s(8)
+    array << fs.mode.to_s(8)[-3, 3]
     array << fs.nlink.to_s
     array << Etc.getpwuid(fs.uid).name
     array << Etc.getgrgid(fs.gid).name
@@ -21,7 +21,7 @@ def list_directory_long_format(files)
   # 結果を出力
   row_files.map do |file|
     print filetype(file[0])
-    print permission(file[1][-3].to_i) + permission(file[1][-2].to_i) + permission(file[1][-1].to_i).to_s.ljust(6)
+    print file[1].chars.map { |f| permission(f.to_i) }.join('')
     print file[2..7].join('  ')
     print "\n"
   end
