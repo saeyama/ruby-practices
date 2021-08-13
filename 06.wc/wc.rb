@@ -28,7 +28,7 @@ def files_content(files)
   files_content_array.transpose
 end
 
-# wcコマンド(ファイル指定 -lオプション) 出力結果用
+# wcコマンド(ファイル指定/-lオプション) 出力結果用
 def files_content_export(files, numbers, files_content_total)
   if files.size == 1
     numbers.transpose.each do |file|
