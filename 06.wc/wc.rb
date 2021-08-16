@@ -19,9 +19,9 @@ end
 # 行数/単語数/バイト数/ファイル名
 def files_content(files)
   files.map do |file|
-    [File.read(file).lines.count, 
-    File.read(file).split(/\s+/).size, 
-    File.read(file).bytesize, file.to_s]
+    [File.read(file).lines.count,
+     File.read(file).split(/\s+/).size,
+     File.read(file).bytesize, file.to_s]
   end.transpose
 end
 
@@ -44,15 +44,15 @@ end
 
 # wcコマンド -lオプション
 def wc_opton_l(files)
-  files_content_export(files, 
-                      ([files_content(files)[0].map(&:to_s)] + [files_content(files)[3]]), 
-                      "#{files_content(files)[0].sum} total")
+  files_content_export(files,
+                       ([files_content(files)[0].map(&:to_s)] + [files_content(files)[3]]),
+                       "#{files_content(files)[0].sum} total")
 end
 
 # wcコマンド ファイル指定
 def wc_files(files)
-  files_content_export(files, 
-                       files_content(files), 
+  files_content_export(files,
+                       files_content(files),
                        "#{files_content(files)[0..2].map(&:sum).join(' ')} total")
 end
 
