@@ -19,41 +19,38 @@ end
 # 行数/単語数/バイト数/ファイル名
 def files_content(files)
   files.map do |file|
-    [File.read(file).lines.count,
-     File.read(file).split(/\s+/).size,
-     File.read(file).bytesize, file.to_s]
+    file_content = File.read(file)
+    [file_content.lines.count, file_content.split(/\s+/).size, file_content.bytesize, file.to_s]
   end.transpose
 end
 
-# wcコマンド(ファイル指定/-lオプション) 出力結果用
-def files_content_export(files, numbers, files_content_total)
-  if files.size == 1
-    numbers.transpose.each do |file|
-      print file.join(' ').to_s
-      print "\n"
-    end
-  elsif files.size >= 2
-    numbers.transpose.each do |file|
-      print file.join(' ').to_s
-      print "\n"
-    end
-    print files_content_total
+# wcコマンド(各内容の出力結果)
+def files_content_each(numbers)
+  numbers.transpose.each do |file|
+    print file.join(' ').to_s
     print "\n"
   end
 end
 
+# wcコマンド(2以上だった場合のトータルの出力結果)
+def files_content_total(numbers, total)
+  files_content_each(numbers)
+  print total
+  print "\n"
+end
+
 # wcコマンド -lオプション
 def wc_opton_l(files)
-  files_content_export(files,
-                       ([files_content(files)[0].map(&:to_s)] + [files_content(files)[3]]),
-                       "#{files_content(files)[0].sum} total")
+  numbers = [files_content(files)[0].map(&:to_s)] + [files_content(files)[3]]
+  total = "#{files_content(files)[0].sum} total"
+  files.size == 1 ? files_content_each(numbers) : files_content_total(numbers, total)
 end
 
 # wcコマンド ファイル指定
 def wc_files(files)
-  files_content_export(files,
-                       files_content(files),
-                       "#{files_content(files)[0..2].map(&:sum).join(' ')} total")
+  numbers = files_content(files)
+  total = "#{files_content(files)[0..2].map(&:sum).join(' ')} total"
+  files.size == 1 ? files_content_each(numbers) : files_content_total(numbers, total)
 end
 
 # $stdin.read
