@@ -12,15 +12,21 @@ def main
     wc_files(files)
   # $stdin.read
   elsif files.empty?
-    list_directory_count
+    files_type($stdin.read).map { |file| print file.to_s.ljust(4) }
+    print "\n"
   end
 end
 
-# 行数/単語数/バイト数/ファイル名
+# 行数/単語数/バイト数出力用
+def files_type(file_content)
+  [file_content.lines.count, file_content.split(/\s+/).size, file_content.bytesize]
+end
+
+# ファイル名出力用
 def files_content(files)
   files.map do |file|
     file_content = File.read(file)
-    [file_content.lines.count, file_content.split(/\s+/).size, file_content.bytesize, file.to_s]
+    files_type(file_content) + [file.to_s]
   end.transpose
 end
 
@@ -32,7 +38,7 @@ def files_content_each(numbers)
   end
 end
 
-# wcコマンド(2以上だった場合のトータルの出力結果)
+# wcコマンド(2以上だった場合の各内容とトータルの出力結果)
 def files_content_total(numbers, total)
   files_content_each(numbers)
   print total
@@ -51,15 +57,6 @@ def wc_files(files)
   numbers = files_content(files)
   total = "#{files_content(files)[0..2].map(&:sum).join(' ')} total"
   files.size == 1 ? files_content_each(numbers) : files_content_total(numbers, total)
-end
-
-# $stdin.read
-def list_directory_count
-  list_directory = $stdin.read
-  [list_directory.count("\n"),
-   list_directory.split(/\s+/).size,
-   list_directory.bytesize].map { |file| print file.to_s.ljust(4) }
-  print "\n"
 end
 
 main
