@@ -11,7 +11,7 @@ def main
   elsif files.size >= 1
     wc_files(files)
   # $stdin.read
-  else files.empty?
+  else
     files_sizes($stdin.read).map { |file| print file.to_s.ljust(4) }
     print "\n"
   end
