@@ -11,14 +11,14 @@ def main
   elsif files.size >= 1
     wc_files(files)
   # $stdin.read
-  elsif files.empty?
-    files_type($stdin.read).map { |file| print file.to_s.ljust(4) }
+  else files.empty?
+    files_sizes($stdin.read).map { |file| print file.to_s.ljust(4) }
     print "\n"
   end
 end
 
 # 行数/単語数/バイト数出力用
-def files_type(file_content)
+def files_sizes(file_content)
   [file_content.lines.count, file_content.split(/\s+/).size, file_content.bytesize]
 end
 
@@ -26,7 +26,7 @@ end
 def files_content(files)
   files.map do |file|
     file_content = File.read(file)
-    files_type(file_content) + [file.to_s]
+    files_sizes(file_content) + [file.to_s]
   end.transpose
 end
 
