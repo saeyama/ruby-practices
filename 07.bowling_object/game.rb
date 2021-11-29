@@ -4,28 +4,30 @@
 require './frame'
 
 class Game
-  def initialize(frame)
-    @frames = frame.score_slice
+  def initialize(frames)
+    @frames = frames.score_slice
   end
 
-  def point
-    @frames.each_with_index.sum do |f, i|
-      if f == [10] && @frames[i + 1] == [10] && (i < 9)
-        20 + @frames[i + 2][0]
-      elsif f == [10] && (i < 9)
-        10 + @frames[i + 1][0] + @frames[i + 1][1]
-      elsif f.sum == 10 && (i < 9)
-        f.sum + @frames[i + 1][0]
-      else
-        f.sum
-      end
+  def strike_calculation(frame, index)
+    if frame == [10] && @frames[index + 1] == [10] && (index < 9)
+      20 + @frames[index + 2][0]
+    elsif frame == [10] && (index < 9)
+      10 + @frames[index + 1][0] + @frames[index + 1][1]
     end
   end
 
-  def total
-    [] << point
+  def point
+    @frames.each_with_index.sum do |frame, index|
+      if frame == [10]
+        strike_calculation(frame, index)
+      elsif frame.sum == 10 && (index < 9)
+        frame.sum + @frames[index + 1][0]
+      else
+        frame.sum
+      end
+    end
   end
 end
 
 game = Game.new(Frame.new(Shot.new))
-p game.total
+p game.point
