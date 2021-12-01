@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 class Shot
-  def initialize
-    @shot_int = ARGV[0]
+  def initialize(shot_int)
+    @shot_int = shot_int
   end
 
   def score
