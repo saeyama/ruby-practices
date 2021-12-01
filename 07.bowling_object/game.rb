@@ -29,5 +29,5 @@ class Game
   end
 end
 
-game = Game.new(Frame.new(Shot.new(ARGV[0])))
-p game.point
+# game = Game.new(Frame.new(Shot.new(ARGV[0])))
+# p game.point
