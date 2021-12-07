@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 class Shot
-  def initialize(shot_int)
-    @shot_int = shot_int
+  def initialize(shot)
+    @shot = shot
   end
 
   def score
-    @shot_int.split(',').map { |s| s == 'X' ? 10 : s.to_i }
+    @shot == 'X' ? 10 : @shot.to_i
   end
 end

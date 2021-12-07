@@ -1,20 +1,32 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require './shot'
+require_relative 'shot'
 
 class Frame
-  def initialize(shot)
-    @shot_array = shot.score
+  def initialize(shot1, shot2 = nil, shot3 = nil)
+    @shot1 = Shot.new(shot1)
+    @shot2 = Shot.new(shot2)
+    @shot3 = Shot.new(shot3)
   end
 
-  def score_slice
-    Array.new(10) do |i|
-      if i < 9
-        @shot_array[0] == 10 ? [@shot_array.shift] : @shot_array.shift(2)
-      else
-        @shot_array
-      end
-    end
+  def add_strike
+    [@shot1.score, @shot2.score].sum
+  end
+
+  def add_spare
+    @shot1.score
+  end
+
+  def scores
+    [@shot1.score, @shot2.score, @shot3.score].sum
+  end
+
+  def strike?
+    @shot1.score == 10
+  end
+
+  def spare?
+    [@shot1.score, @shot2.score].sum == 10 && !strike?
   end
 end

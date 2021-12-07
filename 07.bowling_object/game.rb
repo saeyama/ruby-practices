@@ -1,33 +1,40 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require './frame'
+require_relative 'shot'
+require_relative 'frame'
 
 class Game
-  def initialize(frames)
-    @frames = frames.score_slice
+  def initialize(input)
+    @input = input
   end
 
-  def strike_calculation(frame, index)
-    if frame == [10] && @frames[index + 1] == [10] && (index < 9)
-      20 + @frames[index + 2][0]
-    elsif frame == [10] && (index < 9)
-      10 + @frames[index + 1][0] + @frames[index + 1][1]
-    end
+  def total_frames
+    shots = @input.split(',')
+    frames =
+      Array.new(10) do |i|
+        if i < 9
+          shots[0] == 'X' ? [shots.shift] : shots.shift(2)
+        else
+          shots
+        end
+      end
+    frames.map{ |frame| Frame.new(*frame) }
   end
 
   def point
-    @frames.each_with_index.sum do |frame, index|
-      if frame == [10]
-        strike_calculation(frame, index)
-      elsif frame.sum == 10 && (index < 9)
-        frame.sum + @frames[index + 1][0]
+    point =
+    total_frames.each_with_index.sum do |frame,i|
+      if frame.strike? && total_frames[i + 1] == 10 && (i < 9)
+        20 + total_frames[i + 2].add_spare
+      elsif frame.strike? && (i < 9)
+        10 + total_frames[i + 1].add_strike
+      elsif frame.spare? && (i < 9)
+        frame.scores + total_frames[i + 1].add_spare
       else
-        frame.sum
+        frame.scores
       end
     end
+    point
   end
 end
-
-# game = Game.new(Frame.new(Shot.new(ARGV[0])))
-# p game.point

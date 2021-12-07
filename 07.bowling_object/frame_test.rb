@@ -6,12 +6,19 @@ require_relative 'frame'
 
 class FrameTest < Minitest::Test
   def test_frame1
-    frame = Frame.new(Shot.new('X,X,X,X,X,X,X,X,X,X,X,X'))
-    assert_equal [[10], [10], [10], [10], [10], [10], [10], [10], [10], [10, 10, 10]], frame.score_slice
+    frame = Frame.new('X')
+    assert_equal 10, frame.scores
+    assert frame.strike?
   end
 
   def test_frame2
-    frame = Frame.new(Shot.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,6,4,5'))
-    assert_equal [[6, 3], [9, 0], [0, 3], [8, 2], [7, 3], [10], [9, 1], [8, 0], [10], [6, 4, 5]], frame.score_slice
+    frame = Frame.new('1', '9')
+    assert_equal 10, frame.scores
+    assert frame.spare?
+  end
+
+  def test_frame3
+    frame = Frame.new('X', 'X', 'X')
+    assert_equal 30, frame.scores
   end
 end
