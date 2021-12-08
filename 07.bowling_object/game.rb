@@ -19,22 +19,26 @@ class Game
           shots
         end
       end
-    frames.map{ |frame| Frame.new(*frame) }
+    frames.map { |frame| Frame.new(*frame) }
+  end
+
+  def strike_calculation(frame, index)
+    if index < 8 && frame.strike? && total_frames[index + 1].strike?
+      20 + total_frames[index + 2].add_1score
+    elsif index < 9 && frame.strike?
+      10 + total_frames[index + 1].add_2score
+    end
   end
 
   def point
-    point =
-    total_frames.each_with_index.sum do |frame,i|
-      if frame.strike? && total_frames[i + 1] == 10 && (i < 9)
-        20 + total_frames[i + 2].add_spare
-      elsif frame.strike? && (i < 9)
-        10 + total_frames[i + 1].add_strike
-      elsif frame.spare? && (i < 9)
-        frame.scores + total_frames[i + 1].add_spare
+    total_frames.each_with_index.sum do |frame, index|
+      if index < 9 && frame.strike?
+        strike_calculation(frame, index)
+      elsif index < 9 && frame.spare?
+        frame.scores + total_frames[index + 1].add_1score
       else
         frame.scores
       end
     end
-    point
   end
 end

@@ -11,13 +11,13 @@ class GameTest < Minitest::Test
   end
 
   def test_game2
-    game = Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,6,4,5')
-    assert_equal 139, game.point
+    game = Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,X,X')
+    assert_equal 164, game.point
   end
 
   def test_game3
-    game = Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,X,X')
-    assert_equal 164, game.point
+    game = Game.new('0,10,1,5,0,0,0,0,X,X,X,5,1,8,1,0,4')
+    assert_equal 107, game.point
   end
 
   def test_game4
@@ -28,5 +28,10 @@ class GameTest < Minitest::Test
   def test_game5
     game = Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,1,8')
     assert_equal 144, game.point
+  end
+
+  def test_game6
+    game = Game.new('X,X,X,X,X,X,X,X,X,X,X,X')
+    assert_equal 300, game.point
   end
 end

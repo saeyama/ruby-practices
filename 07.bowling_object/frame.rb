@@ -10,11 +10,11 @@ class Frame
     @shot3 = Shot.new(shot3)
   end
 
-  def add_strike
+  def add_2score
     [@shot1.score, @shot2.score].sum
   end
 
-  def add_spare
+  def add_1score
     @shot1.score
   end
 
