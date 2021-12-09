@@ -10,15 +10,15 @@ class Frame
     @shot3 = Shot.new(shot3)
   end
 
-  def add_2score
+  def shot1_and_shot2_score
     [@shot1.score, @shot2.score].sum
   end
 
-  def add_1score
+  def shot1_score
     @shot1.score
   end
 
-  def scores
+  def score
     [@shot1.score, @shot2.score, @shot3.score].sum
   end
 
