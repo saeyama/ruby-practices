@@ -4,7 +4,7 @@
 require_relative 'options_format'
 require_relative 'options_long_format'
 
-class Command
+class CommandFormat
   def initialize(options)
     @options = options
     @files = @options['a'] ? Dir.glob('*', File::FNM_DOTMATCH).sort : Dir.glob('*').sort
