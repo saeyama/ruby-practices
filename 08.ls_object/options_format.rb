@@ -7,7 +7,7 @@ class OptionsFormat
 
   def list_directory
     split_list_directory.transpose.each do |split_file|
-      split_file.each { |file| print file.to_s.ljust(25) }
+      split_file.each { |file| print file.to_s.ljust(30) }
       print "\n"
     end
   end

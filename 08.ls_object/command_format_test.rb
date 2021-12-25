@@ -40,7 +40,7 @@ class CommandFormatTest < Minitest::Test
     assert_equal [['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 610, '12 25 13:57', 'command_format.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 3468, Time.new.strftime('%m %d %H:%M'), 'command_format_test.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 179, '12 25 13:59', 'ls.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 754, '12 25 13:17', 'options_format.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 754, '12 25 14:31', 'options_format.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1618, '12 25 13:25', 'options_format_test.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1177, '12 25 13:17', 'options_long_format.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1095, '12 25 13:34', 'options_long_format_test.rb']], command_option('l').options_l?
@@ -50,12 +50,12 @@ class CommandFormatTest < Minitest::Test
     assert_equal [['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1095, '12 25 13:34', 'options_long_format_test.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1177, '12 25 13:17', 'options_long_format.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1618, '12 25 13:25', 'options_format_test.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 754, '12 25 13:17', 'options_format.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 754, '12 25 14:31', 'options_format.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 179, '12 25 13:59', 'ls.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 3468, Time.new.strftime('%m %d %H:%M'), 'command_format_test.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 610, '12 25 13:57', 'command_format.rb'],
                   ['-', 'rw-r--r--', '1', 'saekoyamada', 'staff', 0, '6 20 22:03', '.gitkeep'],
-                  ['d', 'rwxr-xr-x', '15', 'saekoyamada', 'staff', 480, '12 25 14:08', '..'],
-                  ['d', 'rwxr-xr-x', '10', 'saekoyamada', 'staff', 320, '12 25 14:08', '.']], command_option('lra').options_l?
+                  ['d', 'rwxr-xr-x', '15', 'saekoyamada', 'staff', 480, '12 25 14:47', '..'],
+                  ['d', 'rwxr-xr-x', '10', 'saekoyamada', 'staff', 320, '12 25 14:47', '.']], command_option('lra').options_l?
   end
 end
