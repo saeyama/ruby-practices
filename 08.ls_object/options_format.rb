@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ListDirectory
+class OptionsFormat
   def initialize(files)
     @files = files
   end

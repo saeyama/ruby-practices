@@ -2,12 +2,12 @@
 
 require 'etc'
 
-class ListDirectoryLongFormat
+class OptionsLongFormat
   def initialize(files)
     @files = files
   end
 
-  def list_directory_long_format
+  def list_directory
     puts "total #{total_stat_files}"
     create_row_files.each do |file|
       print file.join(' ')
