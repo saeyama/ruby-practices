@@ -5,4 +5,4 @@ require 'optparse'
 require_relative 'command_format'
 
 ls_command = CommandFormat.new(ARGV.getopts('alr'))
-ls_command.option
+ls_command.list_directory

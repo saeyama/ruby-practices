@@ -13,7 +13,7 @@ class CommandFormat
     @ls_option = Options.new(@files_output_order)
   end
 
-  def option
+  def list_directory
     if @options['l']
       @ls_l_option.list_directory
     else
