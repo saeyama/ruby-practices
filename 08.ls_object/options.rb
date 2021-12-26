@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OptionsFormat
+class Options
   def initialize(files)
     @files = files
   end
@@ -29,10 +29,6 @@ class OptionsFormat
   end
 
   def split_list_directory
-    split_files = []
-    create_list_directory.each_slice(create_list_directory.size / COLUMNS_NUMBER) do |list|
-      split_files << list
-    end
-    split_files
+    create_list_directory.each_slice(create_list_directory.size / COLUMNS_NUMBER).to_a
   end
 end

@@ -5,4 +5,4 @@ require 'optparse'
 require_relative 'command_format'
 
 ls_command = CommandFormat.new(ARGV.getopts('alr'))
-ls_command.options_l?
+ls_command.option
