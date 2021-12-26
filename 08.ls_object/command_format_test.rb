@@ -11,51 +11,50 @@ class CommandFormatTest < Minitest::Test
   end
 
   def test_command1
-    assert_equal [['command_format.rb', 'options_format.rb', 'options_long_format_test.rb'],
-                  ['command_format_test.rb', 'options_format_test.rb', nil],
-                  ['ls.rb', 'options_long_format.rb', nil]], command_option(' ').options_l?
+    assert_equal [['command_format.rb', 'options.rb', 'options_test.rb'],
+                  ['command_format_test.rb', 'options_long_format.rb', nil],
+                  ['ls.rb', 'options_long_format_test.rb', nil]], command_option(' ').option
   end
 
   def test_command2
-    assert_equal [['.', 'command_format_test.rb', 'options_long_format.rb'],
-                  ['..', 'ls.rb', 'options_long_format_test.rb'],
-                  ['.gitkeep', 'options_format.rb', nil],
-                  ['command_format.rb', 'options_format_test.rb', nil]], command_option('a').options_l?
+    assert_equal [['.', 'command_format_test.rb', 'options_long_format_test.rb'],
+                  ['..', 'ls.rb', 'options_test.rb'], ['.gitkeep', 'options.rb', nil],
+                  ['command_format.rb', 'options_long_format.rb', nil]], command_option('a').option
   end
 
   def test_command3
-    assert_equal [['options_long_format_test.rb', 'options_format.rb', 'command_format.rb'],
-                  ['options_long_format.rb', 'ls.rb', nil],
-                  ['options_format_test.rb', 'command_format_test.rb', nil]], command_option('r').options_l?
+    assert_equal [['options_test.rb', 'options.rb', 'command_format.rb'],
+                  ['options_long_format_test.rb', 'ls.rb', nil],
+                  ['options_long_format.rb', 'command_format_test.rb', nil]], command_option('r').option
   end
 
   def test_command4
-    assert_equal [['options_long_format_test.rb', 'ls.rb', '..'],
-                  ['options_long_format.rb', 'command_format_test.rb', '.'],
-                  ['options_format_test.rb', 'command_format.rb', nil],
-                  ['options_format.rb', '.gitkeep', nil]], command_option('ar').options_l?
+    assert_equal [['options_test.rb', 'ls.rb', '..'],
+                  ['options_long_format_test.rb', 'command_format_test.rb', '.'],
+                  ['options_long_format.rb', 'command_format.rb', nil],
+                  ['options.rb', '.gitkeep', nil]], command_option('ar').option
   end
 
   def test_command5
-    assert_equal [['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 610, '12 25 13:57', 'command_format.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 3468, Time.new.strftime('%m %d %H:%M'), 'command_format_test.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 179, '12 25 13:59', 'ls.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 754, '12 25 14:31', 'options_format.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1618, '12 25 13:25', 'options_format_test.rb'],
+    assert_equal [['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 593, '12 26 15:19', 'command_format.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 3342, Time.new.strftime('%m %d %H:%M'), 'command_format_test.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 175, '12 26 15:20', 'ls.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 672, '12 26 15:19', 'options.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1177, '12 25 13:17', 'options_long_format.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1095, '12 25 13:34', 'options_long_format_test.rb']], command_option('l').options_l?
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1095, '12 26 15:29', 'options_long_format_test.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1493, '12 26 15:29', 'options_test.rb']], command_option('l').option
   end
 
   def test_command6
-    assert_equal [['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1095, '12 25 13:34', 'options_long_format_test.rb'],
+    assert_equal [['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1493, '12 26 15:29', 'options_test.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1095, '12 26 15:29', 'options_long_format_test.rb'],
                   ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1177, '12 25 13:17', 'options_long_format.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 1618, '12 25 13:25', 'options_format_test.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 754, '12 25 14:31', 'options_format.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 179, '12 25 13:59', 'ls.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 3468, Time.new.strftime('%m %d %H:%M'), 'command_format_test.rb'],
-                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 610, '12 25 13:57', 'command_format.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 672, '12 26 15:19', 'options.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 175, '12 26 15:20', 'ls.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 3342, Time.new.strftime('%m %d %H:%M'), 'command_format_test.rb'],
+                  ['-', 'rwxr-xr-x', '1', 'saekoyamada', 'staff', 593, '12 26 15:19', 'command_format.rb'],
                   ['-', 'rw-r--r--', '1', 'saekoyamada', 'staff', 0, '6 20 22:03', '.gitkeep'],
-                  ['d', 'rwxr-xr-x', '15', 'saekoyamada', 'staff', 480, '12 25 14:47', '..'],
-                  ['d', 'rwxr-xr-x', '10', 'saekoyamada', 'staff', 320, '12 25 14:47', '.']], command_option('lra').options_l?
+                  ['d', 'rwxr-xr-x', '15', 'saekoyamada', 'staff', 480, '12 26 15:38', '..'],
+                  ['d', 'rwxr-xr-x', '10', 'saekoyamada', 'staff', 320, '12 26 15:38', '.']], command_option('lra').option
   end
 end
