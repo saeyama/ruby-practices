@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Options
+class ShortFormatter
   def initialize(files)
     @files = files
   end
@@ -18,13 +18,12 @@ class Options
 
   def create_list_directory
     column_files = []
-    columns_number = 3
     @files.each_slice(COLUMNS_NUMBER) do |list|
       column_files << list
     end
 
     column_files.map do |file|
-      file.values_at(0...columns_number)
+      file.values_at(0...COLUMNS_NUMBER)
     end.flatten
   end
 

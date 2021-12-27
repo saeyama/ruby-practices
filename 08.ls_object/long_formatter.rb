@@ -2,7 +2,7 @@
 
 require 'etc'
 
-class OptionsLongFormat
+class LongFormatter
   def initialize(files)
     @files = files
   end

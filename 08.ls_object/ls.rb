@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
-require_relative 'command_format'
+require_relative 'ls_command'
 
-ls_command = CommandFormat.new(ARGV.getopts('alr'))
+ls_command = LsCommand.new(ARGV.getopts('alr'))
 ls_command.list_directory
