@@ -7,7 +7,7 @@ class ShortFormatter
 
   def list_directory
     split_list_directory.transpose.each do |split_file|
-      split_file.each { |file| print file.to_s.ljust(30) }
+      split_file.each { |file| print file.to_s.ljust(24) }
       print "\n"
     end
   end
